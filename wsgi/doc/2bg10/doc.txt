@@ -1,0 +1,244 @@
+2bg10報告內容
+===
+這是 2bg10報告內容
+
+報告摘要
+===
+這是 2bg10 報告
+
+摘要內容
+
+標題: Collaborative Writing Approach to Wiki
+
+原文(摘要):
+
+1.The most important characteristic of wikis is that they provide support for the collaborative pro-duction of shared knowledge, documents, and study materials by means of reading, writing, group reflection and interaction.
+
+2.Collaborative writing requires technical skills associated with formatting, editing, use of fonts, color, input of multimedia elements (text, graphics, images, au-dio and video) onto wiki pages, hyper linking, etc.
+
+3.In addition, collaborative writing involves ac-tive participation of the project members, shared editing, reading and group writing strategies, revisions, peer-review, and group evaluations of contributions (Judd, Kennedy, & Cropper, 2010; Kim, Hong, Bonk, & Lim, 2009; Meishar-Tal & Gorsky, 2010).
+
+4.Hence, the development of wiki-based collaborative writing must differ from other approaches to software production in a number of aspects. Approaches that use conventional software development, such as the waterfall model (Pressman, 2000), or extensions of these approaches to Web-based learning (Horton & Lynch, 1999), to address the whole software process are not flexible enough, time-consuming, and too complicated, to be applied to collaborative writing projects.
+
+5.Domain-specific approaches that are exclusively devoted to Web-based development (Balasubramaniam, Pries-Hje & Baskerville, 2003; Baskerville, 1999; Murugesan & Ginige, 2001) do not explicitly address the specific char-acteristics that are proper to wikis, such as collaboration, participation, active involvement in the gradual production of texts and documents.
+
+6.Another important difference between conventional software production and wiki development is that wikis are mostly concerned with writing proc-esses rather than software and programming activities, even though some programming skills (mostly html coding) are needed.
+
+7.In addition, a practical approach to collaborative writing needs to consider that wiki developers are not software experts.
+
+8.Nevertheless, some elements of soft-ware production are still important and need to be considered for wiki development, such as user involvement, architecture design, quality insurance, and component integration.
+
+9.Finally, evolu-tionary approaches such as rapid prototyping are more suitable to the collaborative character of wiki-based writing.
+
+10.Rapid prototyping is powerful to quickly generate an initial text that can be improved, changed, and modified collaboratively through incremental revisions.
+===
+中文:
+1.Wikis最重要的特徵是它們提供的合作生產的共享知識、文檔、以及閱、讀寫作，小組反思和互動的方式學習材料的支持。
+
+2.協同寫作要求與格式相關的技術技能、編輯，使用的字體、顏色、多媒體元素（文字、圖形、圖像、音頻和視頻）到wiki頁面的超連結等輸入。
+
+3.此外，協同寫作牽涉的專案成員，共享編輯，閱讀和寫作組策略，修改，評審，以及評估小組的貢獻(Judd, Kennedy, & Cropper, 2010; Kim, Hong, Bonk, & Lim, 2009; Meishar-Tal & Gorsky, 2010)。
+
+4.因此，為基於wiki的協同寫作的發展必須不同於其他的方法來生產軟件在多個方面。使用傳統的軟件開發，如瀑布模型(Pressman, 2000)，或這些方法基於網絡的學習（Horton & Lynch, 1999）擴展的方法，以解決整個軟件過程是不夠靈活，費時，太複雜了，要應用到協同寫作項目。
+
+5.特定領域的辦法，是專門致力於基於Web的開發(Balasubramaniam, Pries-Hje & Baskerville, 2003; Baskerville, 1999; Murugesan & Ginige, 2001)並沒有明確解決具體字符，acteristics是恰當的wikis，這樣的協同、參與，逐步生產文本和文件的積極參與。
+
+6.傳統的軟件生產和的wiki發展的另一個重要區別是，wiki大多寫proc-esses，而不是軟件和編程活動，即使一些編程技巧(mostly html coding)是必要的。
+
+7.此外，實用的方法，協同寫作需要考慮的wiki開發商不是軟件專家。
+
+8.然而，軟件生產中的一些內容仍然是重要的，需要考慮的wiki開發，如用戶參與、架構設計、優質的保險和組件組成。
+
+9.最後，evolu-tionary的方法，如快速原型更適合的基於wiki的書面合作字符。
+
+10.快速成型的功能快速生成可以改善並增加修正協同修改的初始文本。
+===
+2bg10 w8報告摘要
+
+(第一題) 請寫一個執行時可以列出 9×9 乘法表的網際 Python 程式, 然後 Push 到個人 bitbucket 空間, 而且同步指到 OpenShift 個人帳號上執行.
+
+程式碼:
+for x in range(0,10):
+      for y in range(0,10):
+          print(x,'*',y,'=',x*y)
+          
+解題過程:
+打完程式後，之後我把它上傳到bitbucket，git add .→ git commit -m “99”→ git push，之後為了要把99乘法表顯示在openshift CMSimply上，進去openshift CMSimply的資料夾→ wsgi資料夾→ application檔案，在裡面新增一個class 的格式，之後連線FileZilla , 把application檔案覆蓋到app-root/runtime/repo/wsgi的application檔案下，之後進去openshift CMSimply的網站，就顯示99乘法表了。
+
+2.(第二題) 請將上述執行過程錄為 flv 後, 上傳到個人的 Vemeo 空間中, 並將網址回報到各組網站 (dokuwiki 與 CMSimply)與報告中, 並且將相關心得與報告連結登錄到 wiki.mde.tw 第八週的分組頁面中.
+
+網址:https://vimeo.com/93010133
+
+3.(第三題) (協同計分, 分組進行) 請在各組的雲端 dowiki 中,根據下列 40 個帳號與密碼, 新增對應的使用者帳號與密碼後, 將雲端網址登錄在 wiki.mde.tw 各組第八週頁面中, 並說明操作過程與心得後, 將心得整理成 pdf 後繳交到 course@mde.tw.
+
+解題過程:用手打
+
+圖片連結:
+https://www.facebook.com/photo.php?fbid=237748633096932&set=a.107866072751856.1073741826.100005853909062&type=1&theater 
+程式碼連結:
+https://www.facebook.com/photo.php?fbid=237751783096617&set=a.107866072751856.1073741826.100005853909062&type=1&theater
+===
+2bg10 w9報告摘要
+
+1.(第一題 30%) 請寫一個執行時可以列出以十為底對數表的網際 Python 程式, 然後 Push 到個人 bitbucket 空間, 而且同步指到 OpenShift 個人帳號上執行.
+
+程式碼:
+import math
+  count = 0
+  text='%04d'
+  for i in range(100,200+10):
+      print(text%round(math.log(i/100,10)*10000,0),end='-')
+      count += 1
+      if(count == 10):
+          print()
+          count = 0
+解題過程:
+打完程式後，有顯示出來，但無法顯示表單在CMSimply網址上，只能用最蠢的方式<tr><td>一個一個慢慢打。
+
+2.(第二題 40%) 請在個人的 OpenShift 平台上建立一個能夠列印出與九九乘法表結果完全相同的網際程式, 接著在乘法表上端加上兩個輸入表單, 讓使用者輸入兩個整數, 按下送出鍵後, 程式會列出以此兩個整數為基底的乘法表, 例如: 若兩個欄位都輸入: 9, 則列出九九乘法表, 若輸入 9, 20, 則列出 9×20 的乘法表.
+
+解題過程:
+打完程式後，之後我把它上傳到bitbucket，git add .→ git commit -m “w9_2”→ git push，之後為了要把99乘法表顯示在openshift CMSimply上，進去openshift CMSimply的資料夾→ wsgi資料夾→ application檔案，在裡面新增一個class 的格式，之後連線FileZilla , 把application檔案覆蓋到app-root/runtime/repo/wsgi的application檔案下，之後進去openshift CMSimply的網站，輸入 9, 20, 則顯示 9×20 的乘法表.
+
+3.(第三題 30%) 請在各組的雲端 dokuwiki 中, 新增帳號與密碼都是由 abc001 ~ abc399 字串所組成的 399 名用戶登入對應資料, 並將製作過程與驗證流程拍成 flv 後上傳到個人的 Vimeo 資料區, 並將連結放在個人第九週頁面.
+
+程式碼:
+import hashlib
+  #convert user_password into sha1 encoded string
+  def gen_password(user_password):
+      return hashlib.sha1(user_password.encode("utf-8")).hexdigest()
+  text='abc%03d'
+  for i in range(1,399+1):
+      print(text%(i)+':'+gen_password(text%(i))+':'+text%(i)+'@gmail.com:'+text%(i)+'@gmail.com:'+'user')
+
+解題過程:
+先寫一個程式使他能產生帳號與密碼都是由 abc001 ~ abc399 字串所組成的 399 名用戶登入對應資料，之後連線到openshift dokuwiki的FileZilla，把產生出來的程式碼貼到app-root/data/conf/users.auth.php下，之後開啟dokuwiki網站即可。
+===
+2bg10 w12報告摘要
+
+任務一: 請各組將第八週與第九週考試的摘要報告放入 Github 協同專案中的分組報告區, 並將內容放入各組控管的同步 OpenShift 網站中. (佔期末成績 5分)
+
+解題過程:
+將之前W8及W9的考試報告放入github的分組報告區，並將內容放入openshift網站中
+
+http://2014cdbg10-40123241.rhcloud.com
+
+任務二: 請各組設法利用 CherryPy 與 Pro/Web.Link 技術, 在 Github 協同專案中建立一個能夠透過連結或表單控制 Cube 零件, a, b, 或 c 零件尺寸的網際協同程式, 讓使用者可以藉以利用近端的 Creo 嵌入式瀏覽器控制 Cube 的尺寸後列出該零件的體積大小. (佔期末成績 5分)
+
+解題過程:
+將原本程式裡的迴圈刪掉，增加立方體的長寬高之變數，使其可在URL後面輸入變數更改其數值，ex:　http://127.0.0.1:8080/cdag1/cube1?w=100&h=100&l=100
+
+===
+2bg10 w13報告摘要
+
+任務一: 請以手動方式, 從下方下載 lego_man.7z 零件, 完成組立後, 以組員為單位, 在各分組報告區詳細說明組立過程的重點與注意事項. (5 分)
+
+1.注意組立順序及校正
+2.必須與基準面互相平行
+
+任務二: 請利用 Vimeo 及 copy.com 存放任務一中的手動組立流程影片檔案, 以組員為單位, 將連結放入各分組報告區中. (5 分)
+
+網址:http://vimeo.com/96365928
+copy:https://www.copy.com/home/?modal=%2Fauth%2Flogin%3Fredirect%3D%252Fbrowse%252Fcopy%252F%2525E6%2525A8%252582%2525E9%2525AB%252598%2525E6%2525A8%2525A1%2525E7%2525B5%252584%25252040123245.flv
+
+任務三: 請仔細觀察協同程式中的 lego_man 自動組立程式, 並且從下方 lego_parts_edu.7z 中下載相同名稱的 lego_man 零件, 請詳細比較兩個壓縮檔案解開的 lego_man 零件檔案, 有哪些差別? 請將詳細比對結果以組為單位將資料放入各分組的報告中. (5 分)
+
+===
+2bg10 w14報告摘要
+
+任務 1 (5 分): 請以 Creo 開啟 remsub6.asm, 本任務要求各組員以手動組立完成此一零件組立.
+
+圖檔:https://cdbg10-40123241.rhcloud.com/cmsimply/get_page?heading=W14%20%E7%AC%AC%E4%B8%80%E9%A1%8C
+
+任務 2 (5 分): 請將任務 1 手動組立流程拍成 flv 檔案後, 分別上傳到 copy.com 與 Vimeo 網站, 並將個人心得與相關連結放入各組協同報告中.
+
+40123245 廖柏豪
+影片網址:http://vimeo.com/96682631
+影片網址:https://copy.com/a74G38MaOetL
+40123241 黃郁文
+影片網址: https://vimeo.com/96708987
+影片網址: https://copy.com/3UhNljTRCONa
+
+任務 3 (5 分): 請修改上週小人偶自動組立程式, 以組為單位, 將組立命名為 remsub6 函式, 當使用者連結至各組雲端網站中的 remsub6, 可以完成自動組立, 操作完成後, 請將分組心得與相關連結放入各組協同報告中.
+===
+2bg10 w15報告摘要
+
+任務 1 (5 分): 請以 Creo 開啟 remsub5.asm, 本任務要求各組員以手動組立完成此一零件組立.
+
+40123241 黃郁文
+圖檔:https://cdbg10-40123241.rhcloud.com/cmsimply/get_page?heading=W15%E7%AC%AC%E4%B8%80%E9%A1%8C
+
+任務 2 (5 分): 請將任務 1 手動組立流程拍成 flv 檔案後, 分別上傳到 copy.com 與 Vimeo 網站, 並將個人心得與相關連結放入各組協同報告中.
+
+40123245 廖柏豪
+影片網址:https://vimeo.com/97301715
+影片網址:https://copy.com/bLkv9PhHHSh2
+40123241 黃郁文
+影片網址: https://vimeo.com/97303461
+影片網址: https://copy.com/wl1Q1hFI6mya
+
+任務 3 (5 分): 請修改上週小人偶自動組立程式, 以組為單位, 將組立命名為 remsub5 函式, 當使用者連結至各組雲端網站中的 remsub5, 可以完成自動組立, 操作完成後, 請將分組心得與相關連結放入各組協同報告中.
+===
+2bg10 w16w17w18期末報告摘要
+
+第十六, 十七與十八週的任務 (佔期末成績 45 分), 在讓各組根據教材三的架構做為導引, 建立一個類似 Teamproject 的雲端軟體套件.
+其中要點包含:
+協同產品設計為同步協同或非同步協同
+套件的架構為何(流程圖), 希望引入哪些技術(本課程教導了哪些協同技術?), 解決哪些問題, 提升哪些效能?
+完成後援此教材三的格式, 編寫一份套件簡介的報告(至多 5 頁)
+所完成的內容, 必須同步放入各組雲端網站, Github 協同專案, 以及各組的協同報告中.
+各組完成專案後, 必須按照時間在各週內進行組員自我評分(由各組組員自行評分), 以及各組自我評分(必須找其他三組進行交叉評分).
+目前已經具備的技術:
+在近端利用 Creo 繪製零件
+利用遠端 Pro/Web.Link 程式修改近端 Creo 零件尺寸
+將近端零件轉為 STL, 上傳至遠端 CMSimply 網站中檢視
+在近端利用手動組立零件
+在近端利用遠端網站上的 Pro/Web.Link 進行自動組立
+在近端與雲端建立 Dokuwiki 網站
+利用手動或半自動方式管理 Dokuwiki 的使用者
+在近端與雲端建立 CMSimply 網站
+利用 Github 與 Bitbucket 管理所有文字資料的版次
+利用近端 Leo Editor 與可攜程式系統管理所有資料
+利用近端環境產生 pdf 與 html 格式報告資料
+
+第10組期末報告PDF:
+https://copy.com/jtVZSEuPjUa0
+
+CREO自動組立程式碼:
+var featID = three_plane_assembly(session, assembly, transf, 0, 0, "beam_7.prt",   //本體跟creo基準面接合
+"ASM_TOP", "ASM_FRONT", "ASM_RIGHT", "TOP", "FRONT", "RIGHT"); 
+
+axis_plane_assembly(session, assembly, transf, featID, 0,
+"axle_3.prt", "FRONT", "DTM1", "FRONT", "DTM1", "DTM1", "DTM1");
+
+axis_plane_assembly(session, assembly, transf, featID, 1,
+"axle_txtender.prt", "RIGHT", "FRONT", "DTM2", "RIGHT", "FRONT", "DTM3");
+
+axis_plane_assembly(session, assembly, transf, featID, 1,
+"axle_txtender.prt", "FRONT", "DTM1", "RIGHT", "FRONT", "TOP", "RIGHT");
+
+axis_plane_assembly(session, assembly, transf, featID, 2,
+"axle_red.prt", "RIGHT", "FRONT", "DTM1", "RIGHT", "FRONT", "DTM3");
+
+axis_plane_assembly(session, assembly, transf, featID, 2,
+"axle_red.prt", "RIGHT", "FRONT", "DTM2", "RIGHT", "FRONT", "DTM4");
+
+axis_plane_assembly(session, assembly, transf, featID, 3,
+"COON_AXLE_FEMALE.prt", "RIGHT", "FRONT", "DTM3", "RIGHT", "FRONT", "DTM1");
+
+axis_plane_assembly(session, assembly, transf, featID, 3,
+"COON_AXLE_FEMALE", "RIGHT", "FRONT", "DTM3", "RIGHT", "FRONT", "DTM2");
+
+
+axis_plane_assembly(session, assembly, transf, featID, 4,
+"COON_AXLE_FEMALE", "a_18", "DTM1", "a_17", "DTM3");
+
+axis_plane_assembly(session, assembly, transf, featID, 5,
+"CONN", "DTM2", "A_4", "DTM3", "A_21");
+
+心得:由於零件跟程式輸入後產生錯誤，所以只把程式碼貼上來
+===
+40123245 廖柏豪  90
+40123241 黃郁文  85
+40123218 呂少甫  60
+

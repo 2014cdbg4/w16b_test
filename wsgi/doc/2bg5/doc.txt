@@ -1,0 +1,601 @@
+2bg5報告內容
+第八週考試摘要
+=======
+
+2bg5第八週報告
+
+壹、	題目
+(第三題) (協同計分, 分組進行) 請在各組的雲端 dowiki 中,根據下列 40 個帳號與密碼, 新增對應的使用者帳號與密碼後, 將雲端網址登錄在 wiki.mde.tw 各組第八週頁面中, 並說明操作過程與心得後, 將心得整理成 pdf 後繳交到 course@mde.tw.
+
+40 個帳號與密碼如下:
+58B39 , 9J35UAVM
+3624D , QANF34CW
+7345B , 3PAFXKWZ
+358DA , E6RJFKW4
+3BC7B , HG2ASNYH
+CA55C , XUZTHWQK
+D2756 , UHK2W3D2
+368B8 , A5QGYA6W
+7948A , PF278WDQ
+C65C4 , GT4KBCXU
+A8964 , 3RPQSW2U
+22422 , 7E57K7F3
+9A5B4 , 4MVKRE5Z
+B5A76 , 3DTAAHUF
+57388 , NP39FGXR
+8A833 , C7DNBHCQ
+29AB8 , 6KMGK73Z
+5ABD2 , PV5FH722
+86293 , PJ69FBMS
+9DCBC , U5HR6QR8
+276DD , URE9FNWD
+599AA , X2P6CTXF
+9C449 , DKRN3V59
+64236 , 86UWN3E9
+43AAC , MNCJZCAX
+73B93 , QX945VJJ
+36283 , M3MQGUXD
+7447C , TQZVDKPT
+C73AB , MSP4GPPX
+8284B , XMT8W9RD
+62454 , SD4C7V89
+44B3C , 636DBRJC
+C75CB , M66RMMQ2
+4A3CB , FF485EQ4
+7D248 , FGJHQDAS
+A7CC4 , R47AHA4Y
+99BCC , RNQYZGQZ
+6DA77 , HRCDP9D8
+357AB , CKB4Q2EC
+A9525 , JDVX75ST
+
+===
+
+貳、	操作過程
+這題是要新增帳密，也就是要編輯在conf下的users.auth.php，並且把帳密的格式改成 ” 帳號 : 密碼(亂碼處理) : 姓名 : 信箱 : 身分 ”，本題總共有40個指定帳密。
+為了節省時間成本，我使用Python程式來處理帳密資料，並產生出所需的帳密資料格式做法如下:
+首先，我將帳號和密碼分別存程兩個txt檔，讓Python程式讀入這兩的檔案，並改寫成所需要的格式(” 帳號 : 密碼(亂碼處理) : 姓名 : 信箱 : 身分 ”)，然後將產出的結果存檔，檔名為 ” users.auth.php” 。
+
+Python程式的程式碼如下:
+import hashlib
+import string
+import random
+ 
+''' sha1 secure hashes '''
+ 
+# convert user_password into sha1 encoded string
+def gen_password(user_password):
+    return hashlib.sha1(user_password.encode("utf-8")).hexdigest()
+ 
+# generate random user password
+def user_password(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+def gen_users_auth_php(stud_list_filename,stud_list_filename2, outputdir, sep):
+    # read lines from file
+    #lines = open("2b_stud_list.txt", "r", encoding="utf-8").read().splitlines()
+    lines = open(stud_list_filename, "r", encoding="utf-8").read().splitlines()
+    lines2 = open(stud_list_filename2, "r", encoding="utf-8").read().splitlines()
+    # we may also need to notice every user with computer generated passwords
+    file_header = '''
+# users.auth.php
+# <?php exit()?>
+# Don't modify the lines above
+#
+# Userfile
+#
+# Format:
+#
+# login:passwordhash:Real Name:email:groups,comma,seperated
+# smd5 admin:$1$BtiJLaL9$q3Zy/VE8X5VrEMsR.XWdj1:admin:admin@gmail.com:admin,user
+
+admin:$1$BtiJLaL9$q3Zy/VE8X5VrEMsR.XWdj1:admin:admin@gmail.com:admin,user
+'''
+    outputfile = open(outputdir+"/users.auth.php", "w", encoding="utf-8")
+    outputfile.write(file_header)
+    for i in range(len(lines)):
+        password = lines2[i].split("\t")[0]
+        user_account = lines[i].split("\t")[0]
+        computer_generated_password = password
+        sha1_password = gen_password(password)
+        real_name = lines[i].split("\t")[0]
+        email = lines[i].split("\t")[0]+"@gm.nfu.edu.tw"
+        groups = "user"
+        '''
+        print(lines[i].split("\t")[0], "-", password, "-", gen_password(password), \
+                "-", lines[i].split("\t")[1])
+        '''
+        print(password)
+        line_to_write = user_account+sep+sha1_password+sep+real_name+sep+email+sep+groups+"\n"
+        outputfile.write(line_to_write)
+    outputfile.close()
+
+# call gen_users_auth_php() to generate users_auth.php file
+gen_users_auth_php("../w8/2b_test3.txt","../w8/2b_testcode.txt", "./", sep=":")
+print("done")
+
+
+===
+
+参、	結果
+產出的結果如下:
+# users.auth.php
+# <?php exit()?>
+# Don't modify the lines above
+#
+# Userfile
+#
+# Format:
+#
+# login:passwordhash:Real Name:email:groups,comma,seperated
+# smd5 admin:$1$BtiJLaL9$q3Zy/VE8X5VrEMsR.XWdj1:admin:admin@gmail.com:admin,user
+
+admin:$1$BtiJLaL9$q3Zy/VE8X5VrEMsR.XWdj1:admin:admin@gmail.com:admin,user
+58B39:2d677ef47c7f9ece096382395a9b6264d5a98b2a:58B39:58B39@gm.nfu.edu.tw:user
+3624D:a93c450b982947f5b3999eba098b5ed1214bb08d:3624D:3624D@gm.nfu.edu.tw:user
+7345B:989b41f7e227924871c07bf7c195f0072a7eb027:7345B:7345B@gm.nfu.edu.tw:user
+358DA:95a16ac4365072726673248f444df7eba75ee1e0:358DA:358DA@gm.nfu.edu.tw:user
+3BC7B:bb6219ca2f108bbbab3fcb66427214ca60a19fe2:3BC7B:3BC7B@gm.nfu.edu.tw:user
+CA55C:70a896fb643df4c19244eefdfe0c3b6068e24c4c:CA55C:CA55C@gm.nfu.edu.tw:user
+D2756:c7fd75ec1dfb78d1ed570e7160e738d03cf49296:D2756:D2756@gm.nfu.edu.tw:user
+368B8:f60809a4518948a58db7c5d6250c9649804f618d:368B8:368B8@gm.nfu.edu.tw:user
+7948A:7be5082ab55621c595dea481d44be9bfc5aceb9c:7948A:7948A@gm.nfu.edu.tw:user
+C65C4:6d179f09c3208d7ee647ecc7ef2382fec8526c68:C65C4:C65C4@gm.nfu.edu.tw:user
+A8964:da61c767b42b77f48638747f90c2f53eb6521c8a:A8964:A8964@gm.nfu.edu.tw:user
+22422:6891153e9320c657d8b11a951583a3f3d3f94fd5:22422:22422@gm.nfu.edu.tw:user
+9A5B4:ce3d965fee0f798491642ddb3dd22ba9d2dced02:9A5B4:9A5B4@gm.nfu.edu.tw:user
+B5A76:644de6fc11d121d957bf808c9b56d9ca4d059a89:B5A76:B5A76@gm.nfu.edu.tw:user
+57388:091f5b9e1a4d1c1d5ea7cce75de24d4b01566250:57388:57388@gm.nfu.edu.tw:user
+8A833:1afac707986f2e384173c677446f1d2a5e898cd3:8A833:8A833@gm.nfu.edu.tw:user
+29AB8:41b6c656f43a0f47657cbd35ea98d2bcec6abeef:29AB8:29AB8@gm.nfu.edu.tw:user
+5ABD2:2e948d36ea4a4bf8658f3a2a661d15672ed0db9b:5ABD2:5ABD2@gm.nfu.edu.tw:user
+86293:e13d11b5cbf8d187fa0979cd0d7f03bf908ac21a:86293:86293@gm.nfu.edu.tw:user
+9DCBC:0025e37ed719f52d0a30b65464de7f65c45fe023:9DCBC:9DCBC@gm.nfu.edu.tw:user
+276DD:b385a60399444c8d209252a409306b87617a70f9:276DD:276DD@gm.nfu.edu.tw:user
+599AA:128496b6c099e3a0636c9ae010453846d9c106c5:599AA:599AA@gm.nfu.edu.tw:user
+9C449:d8ccf636283af15a1a8c5019bc566fa3f3029f96:9C449:9C449@gm.nfu.edu.tw:user
+64236:3d7bf3bc19254caa8a753e3f0640ecd92097ed72:64236:64236@gm.nfu.edu.tw:user
+43AAC:355cd48ab783d5c706f69e17ce4d3a906d235882:43AAC:43AAC@gm.nfu.edu.tw:user
+73B93:cdc7dd45d42e20b08093ec6bebdcaa5e75f14eb7:73B93:73B93@gm.nfu.edu.tw:user
+36283:069fc23c8f5e0de260ea661a380b5f6e645c1349:36283:36283@gm.nfu.edu.tw:user
+7447C:1dfa6eceeb1adf5ad90812f0303a49f1d51ee0ad:7447C:7447C@gm.nfu.edu.tw:user
+C73AB:03f557895599312f51b105bea8c7beba7e229e22:C73AB:C73AB@gm.nfu.edu.tw:user
+8284B:36155aa12ba14f9a5f228c1968433257a72b15ce:8284B:8284B@gm.nfu.edu.tw:user
+62454:cfad59f3ec2a14ab35165cb9bd70912c95d1d438:62454:62454@gm.nfu.edu.tw:user
+44B3C:08b10cf81fb5b427cf5207b1740f786a523fa73c:44B3C:44B3C@gm.nfu.edu.tw:user
+C75CB:6bc91eec32e227f7e403c0a04e77d8d8c24131a5:C75CB:C75CB@gm.nfu.edu.tw:user
+4A3CB:02c4f5bb76ee31308b6fa1840d8c6b36cc2208c3:4A3CB:4A3CB@gm.nfu.edu.tw:user
+7D248:7302dc92744cec96317181dda2f76fff73012153:7D248:7D248@gm.nfu.edu.tw:user
+A7CC4:7d4982682678327d5634124567b797571c1076d3:A7CC4:A7CC4@gm.nfu.edu.tw:user
+99BCC:4e6e5471ffe59aa2642b71e5bf20107a217fa411:99BCC:99BCC@gm.nfu.edu.tw:user
+6DA77:d1f2d06aa7e8728998f4f7231bfb34801541eed4:6DA77:6DA77@gm.nfu.edu.tw:user
+357AB:ea761c7c7751066d42635bdca37b9b9df8b3a7e4:357AB:357AB@gm.nfu.edu.tw:user
+A9525:886cf5d39491b82a810b37dcfc3fd69482b9ee2e:A9525:A9525@gm.nfu.edu.tw:user
+
+最後再使用git add . 、 git commit -m 'My changes' 、 git push，將遠端的wiki更新。
+
+##################################
+
+組員
+
+40123208程千育
+
+40123209劉凱盈
+
+40123211蕭莉蓉(組長)
+
+ 
+
+每週評分
+
+W12
+
+任務一:請各組將第八週與第九週考試的摘要報告放入 Github 協同專案中的分組報告區, 並將內容放入各組控管的同步 OpenShift 網站中. (佔期末成績 5分)
+
+任務二:請各組設法利用 CherryPy 與 Pro/Web.Link 技術, 在 Github 協同專案中建立一個能夠透過連結或表單控制 Cube 零件, a, b, 或 c 零件尺寸的網際協同程式, 讓使用者可以藉以利用近端的 Creo 嵌入式瀏覽器控制 Cube 的尺寸後列出該零件的體積大小. (佔期末成績 5分)
+
+ 
+
+完成第一項，上傳W8W9考試摘要。
+
+
+總得分:5分
+
+滿分:10分
+
+ 
+
+W13
+
+任務一: 請以手動方式, 從下方下載 lego_man.7z 零件, 完成組立後, 以組員為單位, 在各分組報告區詳細說明組立過程的重點與注意事項. (5 分)
+
+任務二: 請利用 Vimeo 及 copy.com 存放任務一中的手動組立流程影片檔案, 以組員為單位, 將連結放入各分組報告區中. (5 分)
+
+任務三: 請仔細觀察協同程式中的 lego_man 自動組立程式, 並且從下方 lego_parts_edu.7z 中下載相同名稱的 lego_man 零件, 請詳細比較兩個壓縮檔案解開的 lego_man 零件檔案, 有哪些差別? 請將詳細比對結果以組為單位將資料放入各分組的報告中. (5 分)
+
+ 
+
+W13-組員:程千育40123208
+
+ 1.利用creo手動組裝小人偶
+
+ 2.影片錄製完成，但是沒有轉檔也沒有上傳
+
+ 3.
+
+ 
+
+總得分:8
+
+滿分:15分
+
+ 
+
+ 
+
+W13-組員:劉凱盈40123209
+
+ 1.上網下載老師檔案，並且手動組裝
+
+ 2.錄影並且轉檔，上傳到copy.com
+
+我的連結  
+
+影片 https://copy.com/mgu9ca2md9UA
+
+圖檔 https://copy.com/RBuyIEbnl6N2               
+
+總得分:10
+
+滿分:15分
+
+ 
+
+ 
+
+W13-組員:蕭莉蓉40123211
+
+任務一:
+用手動完成小人的組立操作，這次的組裝大部分都是選用Pin的性質(星期三5/21)。
+
+creo組立
+
+ 
+
+任務二:
+錄影軟體出問題，錄了三次，都沒成功，vimeo網站再維修(星期三5/21)，最後回到家錄終於成功錄起來了(星期六2014/5/24)，然後也成功用FormatFactory轉檔並上傳到vimeo。影片連結:vimeo copy
+
+ 
+
+任務三:
+首先到IE設定的網際網路選項，將"http://2014cdb-mdenfu.rhcloud.com/"設為信任網站，然後再自定等級裡，講關於ActiveX的選項都設為"啟用"。Creo裡的file>options>configuration editorg 設定 web_enable_javascript 設為 on, regen_failure_handling 設為 resolve_mode。連結到以下網址後"http://2014cdb-mdenfu.rhcloud.com/cdbg30/man/"，點擊"執行 MAN 類別中的 assembly 方法"，進入後將得到的網址"http://2014cdb-mdenfu.rhcloud.com/cdbg30/man/assembly"複製貼到，新開啟的ASM檔案，然後就能完成了(星期六2014/5/24)。 影片連結:vimeo copy
+
+Auto組立
+
+總得分:15分
+
+滿分:15分
+
+ 
+
+W14
+
+請下載 lego_parts.7z orlego_parts.7z, 解開壓縮檔案後, 將資料放入 V:\home\lego 目錄中.
+
+W14 任務 1 (5 分): 請以 Creo 開啟 remsub6.asm, 本任務要求各組員以手動組立完成此一零件組立.
+
+W14 任務 2 (5 分): 請將任務 1 手動組立流程拍成 flv 檔案後, 分別上傳到 copy.com 與 Vimeo 網站, 並將個人心得與相關連結放入各組協同報告中.
+
+W14 任務 3 (5 分): 請修改上週小人偶自動組立程式, 以組為單位, 將組立命名為 remsub6 函式, 當使用者連結至各組雲端網站中的 remsub6, 可以完成自動組立, 操作完成後, 請將分組心得與相關連結放入各組協同報告中.
+
+ 
+
+W14-組員:程千育40123208
+
+ 1.
+
+ 2.
+
+ 3.
+
+ 
+
+總得分:
+
+滿分:分
+
+ 
+
+ 
+
+W14-組員:劉凱盈40123209
+
+ 1.下載老師給的檔案，並且手動組裝起來
+
+ 2.並錄影上傳至copy.com
+
+          
+
+總得分:10
+
+滿分:15分
+
+ 
+
+ 
+
+W14-組員:蕭莉蓉40123211
+
+任務一:
+以Creo手動完成remsub6.asm的組立操作，依序將零件beam_angle,axle_10,axle_5,crossblock_2(6個),bushing(2個),beam_3,conn_3(2個)組裝成形。(星期三5/28)
+
+ https://copy.com/IjbpFPEaBQai
+
+ 
+
+任務二:
+在學校都無法成功錄影，所以影片都是回家後在錄的。(星期三5/28)
+
+Copy: https://copy.com/GXRWILLJfSkL
+
+Vimeo:https://vimeo.com/96706338
+
+https://copy.com/iPg16EJkBZKk 
+
+ 
+
+任務三:
+用寫程式的方式，將零件組裝完成。我改寫man2的程式來完成。
+
+ 原來為:
+
+/////////////////////////////////////////////////////////////////
+// 開始執行組立, 全部採函式呼叫組立
+/////////////////////////////////////////////////////////////////
+
+// Body 與空組立檔案採三個平面約束組立
+// 空組立面為 ASM_TOP, ASM_FRONT, ASM_RIGHT
+// Body 組立面為 TOP, FRONT, RIGHT
+// 若 featID=0 表示為空組立檔案, 而且函式會傳回第一個組立件的 featID
+var featID = three_plane_assembly(session, assembly, transf, 0, 0, "LEGO_BODY.prt", "ASM_TOP", "ASM_FRONT", "ASM_RIGHT", "TOP", "FRONT", "RIGHT"); 
+// 利用函式呼叫組立右手 ARM, 組立增量次序為 1
+axis_plane_assembly(session, assembly, transf, featID, 0, 
+"LEGO_ARM_RT.prt", "A_13", "DTM1", "A_4", "DTM1");
+// 利用函式呼叫組立左手 ARM, 組立增量次序為 2
+axis_plane_assembly(session, assembly, transf, featID, 0, 
+"LEGO_ARM_LT.prt", "A_9", "DTM2", "A_4", "DTM1");
+// 利用函式呼叫組立右手 HAND, 組立增量次序為 3
+axis_plane_assembly(session, assembly, transf, featID, 1, 
+"LEGO_HAND.prt", "A_2", "DTM2", "A_1", "DTM3");
+...........
+
+ 
+
+改寫為:
+
+/////////////////////////////////////////////////////////////////
+// 開始執行組立, 全部採函式呼叫組立
+/////////////////////////////////////////////////////////////////
+
+// Body 與空組立檔案採三個平面約束組立
+// 空組立面為 ASM_TOP, ASM_FRONT, ASM_RIGHT
+// Body 組立面為 TOP, FRONT, RIGHT
+// 若 featID=0 表示為空組立檔案, 而且函式會傳回第一個組立件的 featID
+var featID = three_plane_assembly(session, assembly, transf, 0, 0, "BEAM_ANGLE.prt", "ASM_TOP", "ASM_FRONT", "ASM_RIGHT", "TOP", "FRONT", "RIGHT"); 
+three_plane_assembly(session, assembly, transf, featID, 0, "AXLE_10.prt", "MIDDLE_GREEN", "DTM1", "FRONT", "DTM1", "RIGHT", "FRONT");
+three_plane_assembly(session, assembly, transf, featID, 0, "AXLE_5.prt", "MIDDLE_GREEN", "RED", "BLUE", "TOP", "RIGHT", "FRONT"); 
+three_plane_assembly(session, assembly, transf, featID, 0, "CROSSBLOCK_2.prt", "TOP", "FRONT", "RIGHT", "DTM4", "DTM1", "RIGHT");
+..............
+
+ 
+
+總得分:15分
+
+滿分:15分
+
+ W15
+
+請下載 lego_parts.7z orlego_parts.7z, 解開壓縮檔案後, 將資料放入 V:\home\lego 目錄中.
+
+W15 任務 1 (5 分): 請以 Creo 開啟 remsub5.asm, 本任務要求各組員以手動組立完成此一零件組立.
+
+W15 任務 2 (5 分): 請將任務 1 手動組立流程拍成 flv 檔案後, 分別上傳到 copy.com 與 Vimeo 網站, 並將個人心得與相關連結放入各組協同報告中.
+
+W15 任務 3 (5 分): 請修改上週小人偶自動組立程式, 以組為單位, 將組立命名為 remsub5 函式, 當使用者連結至各組雲端網站中的 remsub5, 可以完成自動組立, 操作完成後, 請將分組心得與相關連結放入各組協同報告中.
+
+ 
+
+W15-組員:程千育40123208
+
+ 1.
+
+ 2.
+
+ 3.
+
+ 
+
+總得分:
+
+滿分:分
+
+ 
+
+ 
+
+W15-組員:劉凱盈40123209
+
+ 1.
+
+ 2.
+
+          
+
+總得分:
+
+滿分:分
+
+ 
+
+ 
+
+W15-組員:蕭莉蓉40123211
+
+https://copy.com/mjJ1qkvXbOVQ
+
+任務一:
+以Creo手動完成remsub5.asm的組立操作，依序將零件  beam_7,  axle_3,  axle_extender(2個),  axle_red(2個),  conn_axle_female(2個),  beam_angle_4x2,  conn組裝成形。(星期三6/4)
+
+ https://copy.com/N8sv2SfahQAO
+
+ 
+
+任務二:
+在學校都無法成功錄影，所以影片都是回家後在錄的。(星期三6/4)
+
+Copy: https://copy.com/xLiZPqyeYfRQ
+
+Vimeo:https://vimeo.com/97310723
+
+https://copy.com/AfDFxAIldCsU
+
+ 
+
+任務三:
+
+用寫程式的方式，將零件組裝完成。我改寫man2的程式來完成。
+
+改寫為:
+
+/////////////////////////////////////////////////////////////////
+// 開始執行組立, 全部採函式呼叫組立
+/////////////////////////////////////////////////////////////////
+
+// Body 與空組立檔案採三個平面約束組立
+// 空組立面為 ASM_TOP, ASM_FRONT, ASM_RIGHT
+// Body 組立面為 TOP, FRONT, RIGHT
+// 若 featID=0 表示為空組立檔案, 而且函式會傳回第一個組立件的 featID
+var featID = three_plane_assembly(session, assembly, transf, 0, 0, "BEAM_7.prt", "ASM_TOP", "ASM_FRONT", "ASM_RIGHT", "TOP", "FRONT", "RIGHT"); 
+three_plane_assembly(session, assembly, transf, featID, 0, "AXLE_3.prt", "TOP", "FRONT", "RIGHT", "TOP", "RIGHT", "FRONT");
+three_plane_assembly(session, assembly, transf, featID, 0, "AXLE_EXTENDER.prt", "TOP", "RIGHT", "FRONT", "TOP", "RIGHT", "FRONT"); 
+three_plane_assembly(session, assembly, transf, featID, 0, "AXLE_EXTENDER.prt", "DTM1", "RIGHT", "FRONT", "TOP", "RIGHT", "FRONT"); 
+three_plane_assembly(session, assembly, transf, featID, 0, "AXLE_RED.prt", "TOP", "RIGHT", "FRONT", "TOP", "RIGHT", "FRONT"); 
+three_plane_assembly(session, assembly, transf, featID, 0, "AXLE_RED.prt", "DTM1", "RIGHT", "FRONT", "TOP", "RIGHT", "FRONT");
+........................
+
+ 
+
+總得分:15分
+
+滿分:15分
+
+
+ W16
+
+W16-組員:蕭莉蓉40123211
+
+自我練習
+
+老師在上課時特別點出了我們在呈現作業時的缺點，所以特別製作這個自我練習來改進缺失。
+這裡我要練習Pro/Web.Link,利用寫程式來進行Creo的組立。
+題目-nremsub6
+
+此題目改自w14的任務remsub6。
+此題目的零件皆與remsub6的零件相同，組裝部分有改變。
+https://copy.com/LGBxvsAiaByi
+
+ 
+
+解題
+
+下載nremsub6的零件。
+https://copy.com/QxXpPIuARzNR
+將零件放在V:/home/lego/nremsub6目錄中。
+Creo web_enable_javascript 設為 on, regen_failure_handling 設為 resolve_mode。
+IE→工具→網際網路選項→安全性→信任的網站，將https://2014cdbg5-40123209.rhcloud.com設為信任網站。
+IE→工具→網際網路選項→安全性→信任的網站→自訂等級 允許信任網站執行 ActiveX。
+開啟空白Creo 組立檔案，在嵌入式 IE, 連接到 https://2014cdbg5-40123209.rhcloud.com/cdbg5/nremsub6/assembly。
+開始自動進行nremsub6組立。
+程式裡的函式大概可分為兩種
+
+固定三個平面
+three_plane_assembly2(session, assembly, transf, featID, 組裝到xx零件的組立增量次序,
+                                         "要組裝的零件名稱.prt", "裝到XX零件的面一","裝到XX零件的面二", "裝到XX零件的面三", "要組裝的零                                            的件面一", "要組裝的零件的面二","要組裝的零件的面三");
+固定一條軸和一個平面
+axis_plane_assembly(session, assembly, transf, featID, 組裝到xx零件的組立增量次序, 
+                                     "要組裝的零件名稱.prt", "裝到XX零件的軸一", "裝到XX零件的面一", "要組裝的零件的軸一", "要組裝的零                                       件的面一");
+程式
+
+可連結到 https://2014cdbg5-40123209.rhcloud.com/cdbg5/nremsub6/assembly →右鍵→檢視網頁原始碼，就能看見程式了。
+心得
+
+寫程式組立的過程中，最好一邊手動組立，確定此約束能手動完成，再寫入程式。
+若是憑空想像，常常會出現很多無法執行的問題。
+ 
+
+13-06-2014
+
+23:52:33
+
+
+成績登入
+
+http://calc-g0v.rhcloud.com/tuvyngbsjq
+
+
+
+<<協同產品設計實習期末報告>>
+
+
+班級:四設二乙
+姓名/學號:
+程千育 40123208
+劉凱盈 40123209
+蕭莉蓉 40123211
+指導老師:嚴家銘
+製作日期:2014.6.22
+ 
+摘要Abstract
+在現代科技如此先進的時代，網路也隨之普及和發達，多人協同要比單一一人苦苦努力來的省力和有效率，也就是集思廣益的好處。
+在本協同產品設計實習課程裡，我們首先上到(1)在近端利用 Creo 繪製零件，然後(2)利用遠端 Pro/Web.Link 程式修改近端 Creo 零件尺寸，並(3)將近端零件轉為 STL，上傳至遠端 CMSimply 網站中檢視，(4)在近端利用手動組立零件，(5)在近端利用遠端網站上的 Pro/Web.Link 進行自動組立，(6)在近端與雲端建立 Dokuwiki 網站，(7)利用手動或半自動方式管理 Dokuwiki 的使用者，(8)在近端與雲端建立 CMSimply 網站，(9)利用 Github 與 Bitbucket 管理所有文字資料的版次，(10)利用近端 Leo Editor 與可攜程式系統管理所有資料，(11)利用近端環境產生 pdf 與 html 格式報告資料。
+
+
+ 
+目錄Directory
+
+摘要Abstract	1
+目錄Directory	2
+介紹Introduction	3
+結論Conclusions	5
+
+ 
+介紹Introduction
+1.	在近端利用 Creo 繪製零件
+學習利用Creo繪製零件。
+2.	利用遠端 Pro/Web.Link 程式修改近端 Creo 零件尺寸
+學習使用Pro/Web.Link 程式的特性，可從遠端網頁上，輸入零件尺寸，進而修改在近端Creo零件的尺寸。
+3.	將近端零件轉為 STL，上傳至遠端 CMSimply 網站中檢視
+學習將零件儲存為STL檔，然後再利用CMSimply網站的file upload 功能將STL上傳，並且可以在file list 開啟STL檔案來檢視。
+4.	在近端利用手動組立零件
+學習使用Creo 手動組立man(樂高小人偶)，並且利用CamStudioPortable錄製影片，再用格式工廠轉檔成FLV，上傳至Copy與Vimeo。
+5.	在近端利用遠端網站上的 Pro/Web.Link 進行自動組立
+學習在近端利用遠端網站上的 Pro/Web.Link 進行自動組立，我們練習過的題目有man、remsub6和remsub5。寫程式組立的過程中，最好一邊手動組立，確定此約束能手動完成，再寫入程式。若是憑空想像，常常會出現很多無法執行的問題。
+6.	在近端與雲端建立 Dokuwiki 網站
+學習先在近端 loclhost 測試更改的程式，節省每次上傳至雲端的時間，在確定沒問題後再利用git 更新至雲端。
+7.	利用手動或半自動方式管理 Dokuwiki 的使用者
+學習利用手動編輯管理 Dokuwiki，將上課的學習過程與心得編輯到雲端Dokuwiki。
+8.	在近端與雲端建立 CMSimply 網站
+學習在近端 loclhost 測試更改的程式，節省每次上傳至雲端的時間，在確定沒問題後再利用git 更新至雲端 CMSimply 網站。
+9.	利用 Github 與 Bitbucket 管理所有文字資料的版次
+學習利用 Github 與 Bitbucket管理所有文字資料的版次，讓班上所有同學都能便利的更新與上傳資料。
+10.	利用近端 Leo Editor 與可攜程式系統管理所有資料
+學習利用近端Leo Editor 與可攜程式系統管理所有資料，可以非常便利的進行文字資料的編輯與管理。
+11.	利用近端環境產生 pdf 與 html 格式報告資料
+學習利用近端Leo Editor 創建button pandoc_auto，在近端環境產生 pdf 與 html 格式報告資料。
+
+ 
+結論Conclusions
+
+在上了一學期的協同產品設計實習課程之後，我們具備了在github等網站上與別人線上合作的能力，並且能夠在近端修改遠端的資料，隨時更新，讓距離不再是問題。只要我們懂得運用程式，就可以把資料傳送到各地，不用再藉由書信來往，直接透過網路的便利性就可以輕易與他人合作，並且隨時上傳或下載資料，使得人與人之間的何過更加便利。
+學會了這項技能，相信在未來對工作或是與他人合作方面都是有所成長的。不再受限於距離與時間，如果可以把這項能力加強並且運用的淋漓盡致，未來必可省下人力資源並且節省時間的消耗。
+
